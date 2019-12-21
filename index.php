@@ -55,17 +55,40 @@
                               <div class="alert alert-success" role="alert">
                                 Комментарий успешно добавлен
                               </div>
-
-                                <div class="media">
-                                  <img src="img/no-user.jpg" class="mr-3" alt="..." width="64" height="64">
-                                  <div class="media-body">
-                                    <h5 class="mt-0">John Doe</h5> 
-                                    <span><small>12/10/2025</small></span>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe aspernatur, ullam doloremque deleniti, sequi obcaecati.
-                                    </p>
-                                  </div>
-                                </div>
+                              <?php 
+                                $commentsData = array(
+                                    array(
+                                        "userName" => "John Doe",
+                                        "time" => "12/10/2025",
+                                        "textComment" => "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe aspernatur, ullam doloremque deleniti, sequi obcaecati."
+                                    ), array(
+                                        "userName" => "Dlinkoln",
+                                        "time" => "12/10/2025",
+                                        "textComment" => "Server"
+                                    ),
+                                    array(
+                                        "userName" => "Stt",
+                                        "time" => "12/10/2025",
+                                        "textComment" => "Lrotveb"
+                                    ),
+                                    array(
+                                        "userName" => "ffgds",
+                                        "time" => "12/10/2025",
+                                        "textComment" => "SS mid"
+                                    )
+                                );
+                                // var_dump($commentsData)
+                                ?>
+                                <?php foreach($commentsData as $key){ ?>
+                                    <div class="media">
+                                        <img src="img/no-user.jpg" class="mr-3" alt="..." width="64" height="64">
+                                        <div class="media-body">
+                                            <h5 class="mt-0"><?php echo $key["userName"];?></h5>
+                                            <span><small><?php echo $key["time"];?></small></span>
+                                            <p><?php echo $key["textComment"];?></p>
+                                        </div>
+                                    </div>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
