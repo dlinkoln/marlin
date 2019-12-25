@@ -2,8 +2,8 @@
     require_once ('connection.php');
     
     
-    echo $messageName = $_POST["name"];
-    echo $messageData = $_POST["text"];
+    $messageName = $_POST["name"];
+    $messageData = $_POST["text"];
 
     $commentsArr = array($messageName,$messageData);
     $sql = "INSERT INTO comments (name, text) VALUES (:name, :text)";

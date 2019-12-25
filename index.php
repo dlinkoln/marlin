@@ -56,36 +56,41 @@
                                 Комментарий успешно добавлен
                               </div>
                               <?php 
-                                $commentsData = array(
-                                    array(
-                                        "userName" => "John Doe",
-                                        "time" => "12/10/2025",
-                                        "textComment" => "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe aspernatur, ullam doloremque deleniti, sequi obcaecati."
-                                    ), array(
-                                        "userName" => "Dlinkoln",
-                                        "time" => "12/10/2025",
-                                        "textComment" => "Server"
-                                    ),
-                                    array(
-                                        "userName" => "Stt",
-                                        "time" => "12/10/2025",
-                                        "textComment" => "Lrotveb"
-                                    ),
-                                    array(
-                                        "userName" => "ffgds",
-                                        "time" => "12/10/2025",
-                                        "textComment" => "SS mid"
-                                    )
-                                );
+                                require_once ('connection.php');
+                                $sql = "SELECT * FROM comments";
+                                $stmt = $pdo->prepare($sql);
+                                $stmt->execute();
+                                $commentsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                 
+                                //     array(
+                                //         "userName" => "John Doe",
+                                //         "time" => "12/10/2025",
+                                //         "textComment" => "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe aspernatur, ullam doloremque deleniti, sequi obcaecati."
+                                //     ), array(
+                                //         "userName" => "Dlinkoln",
+                                //         "time" => "12/10/2025",
+                                //         "textComment" => "Server"
+                                //     ),
+                                //     array(
+                                //         "userName" => "Stt",
+                                //         "time" => "12/10/2025",
+                                //         "textComment" => "Lrotveb"
+                                //     ),
+                                //     array(
+                                //         "userName" => "ffgds",
+                                //         "time" => "12/10/2025",
+                                //         "textComment" => "SS mid"
+                                //     )
+                                // );
                                 // var_dump($commentsData)
                                 ?>
                                 <?php foreach($commentsData as $key){ ?>
                                     <div class="media">
                                         <img src="img/no-user.jpg" class="mr-3" alt="..." width="64" height="64">
                                         <div class="media-body">
-                                            <h5 class="mt-0"><?php echo $key["userName"];?></h5>
-                                            <span><small><?php echo $key["time"];?></small></span>
-                                            <p><?php echo $key["textComment"];?></p>
+                                            <h5 class="mt-0"><?php echo $key["name"];?></h5>
+                                            <span><small><?php echo date("m/d/y",$key["time"]);?></small></span>
+                                            <p><?php echo $key["text"];?></p>
                                         </div>
                                     </div>
                                 <?php } ?>
