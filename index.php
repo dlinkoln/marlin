@@ -52,44 +52,31 @@
                             <div class="card-header"><h3>Комментарии</h3></div>
 
                             <div class="card-body">
-                              <div class="alert alert-success" role="alert">
-                                Комментарий успешно добавлен
-                              </div>
+                                <?php 
+                                    session_start(); 
+                                    if(isset($_SESSION["oneuser"])){
+                                        echo '<div class="alert alert-success" role="alert">
+                                        Комментарий успешно добавлен
+                                      </div>';
+                                      unset($_SESSION["oneuser"]);
+                                    }
+                                    else{
+                                        echo "";
+                                    }
+                                ?>
                               <?php 
                                 require_once ('connection.php');
-                                $sql = "SELECT * FROM comments";
+                                $sql = "SELECT * FROM comments ORDER BY id DESC";
                                 $stmt = $pdo->prepare($sql);
                                 $stmt->execute();
                                 $commentsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                 
-                                //     array(
-                                //         "userName" => "John Doe",
-                                //         "time" => "12/10/2025",
-                                //         "textComment" => "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe aspernatur, ullam doloremque deleniti, sequi obcaecati."
-                                //     ), array(
-                                //         "userName" => "Dlinkoln",
-                                //         "time" => "12/10/2025",
-                                //         "textComment" => "Server"
-                                //     ),
-                                //     array(
-                                //         "userName" => "Stt",
-                                //         "time" => "12/10/2025",
-                                //         "textComment" => "Lrotveb"
-                                //     ),
-                                //     array(
-                                //         "userName" => "ffgds",
-                                //         "time" => "12/10/2025",
-                                //         "textComment" => "SS mid"
-                                //     )
-                                // );
-                                // var_dump($commentsData)
                                 ?>
                                 <?php foreach($commentsData as $key){ ?>
                                     <div class="media">
                                         <img src="img/no-user.jpg" class="mr-3" alt="..." width="64" height="64">
                                         <div class="media-body">
                                             <h5 class="mt-0"><?php echo $key["name"];?></h5>
-                                            <span><small><?php echo date("m/d/y",$key["time"]);?></small></span>
+                                            <span><small><?php echo date("d.m.y",$key["time"]);?></small></span>
                                             <p><?php echo $key["text"];?></p>
                                         </div>
                                     </div>
@@ -107,10 +94,30 @@
                                     <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Имя</label>
                                     <input name="name" class="form-control" id="exampleFormControlTextarea1" />
+                                    <?php  
+                                        if(isset($_SESSION['msgNameErr'])){
+                                            echo '<div class="alert alert-warning mt-3" role="alert">
+                                            Поле имени не может быть пустым
+                                          </div>';
+                                          unset($_SESSION["msgNameErr"]);
+                                        }else{
+                                            echo "";
+                                        }
+                                    ?>
                                   </div>
                                   <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Сообщение</label>
                                     <textarea name="text" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <?php  
+                                        if(isset($_SESSION['msgDataErr'])){
+                                            echo '<div class="alert alert-warning mt-3" role="alert">
+                                            Поле комментария не может быть пустым
+                                          </div>';
+                                          unset($_SESSION["msgDataErr"]);
+                                        }else{
+                                            echo "";
+                                        }
+                                    ?>
                                   </div>
                                   <button type="submit" class="btn btn-success">Отправить</button>
                                 </form>
